@@ -1,0 +1,43 @@
+#%RAML 1.0
+title: Baeldung Foo REST Services API using Data Types
+version: v1
+protocols: [ HTTPS ] 
+baseUri: http://myapi.mysite.com/api/{version}
+mediaType: application/json
+
+types:
+  Note:
+    type: object
+    properties:
+      id:
+        required: integer
+      title: string
+      content?: string
+
+/notes:
+  get:
+    description: List all Foos matching query criteria, if provided; otherwise list all Foos
+    queryParameters:
+      id?: integer
+    responses:
+      200:
+        body:
+          application/json:
+            type: notes[]
+            example: 
+              [
+                { "id" : 1, "title" : "First Foo", "content" : "First Foo" Content },
+                { "id" : 2, "title" : "Second Foo", "content" : "Second Foo Content" }
+              ]
+  post:
+  /{id}:
+    get:
+      description: Get a note by id
+      responses:
+        200:
+          body:
+            application/json:
+              type: note
+              example: { "id" : 1, "title" : "First note", "content" : "First note content" }
+    put:
+    delete:
